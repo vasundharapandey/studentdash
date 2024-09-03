@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../models/courseModel"; // Import your Firestore instance
+import { db } from "../firebase"; // Import your Firestore instance
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -13,10 +13,10 @@ const CourseList = () => {
     const fetchCourses = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "courses"));
-        const coursesData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const coursesData = [];
+        querySnapshot.forEach((doc) => {
+          coursesData.push({ id: doc.id, ...doc.data() });
+        });
         setCourses(coursesData);
       } catch (error) {
         console.error("Error fetching courses: ", error);
@@ -25,7 +25,6 @@ const CourseList = () => {
 
     fetchCourses();
   }, []);
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -65,3 +64,26 @@ const CourseList = () => {
 };
 
 export default CourseList;
+// import React, { useEffect, useState } from "react";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "./firebase";
+
+// function Courses() {
+//   const [courses, setCourses] = useState([]);
+
+//   useEffect(() => {
+//     const fetchCourses = async () => {
+//       try {
+//         const querySnapshot = await getDocs(collection(db, "courses"));
+//         const coursesData = [];
+//         querySnapshot.forEach((doc) => {
+//           coursesData.push({ id: doc.id, ...doc.data() });
+//         });
+//         setCourses(coursesData);
+//       } catch (error) {
+//         console.error("Error fetching courses: ", error);
+//       }
+//     };
+
+//     fetchCourses();
+//   }, []);

@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase"; // Assuming you have a firebase.js file with the Firebase initialization
+import { db } from "../firebase"; // Assuming you have a firebase.js file with the Firebase initialization
 
 async function addCourse() {
   try {
@@ -49,3 +49,4 @@ async function addCourse() {
 }
 
 addCourse();
+export default db;
