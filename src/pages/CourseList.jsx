@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase"; // Import your Firestore instance
-
+import app from "../firebase"
+import addCourse from "../models/courseModel";
+import { getDatabase,ref,get } from "firebase/database";
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // Fetch courses from Firestore
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "courses"));
-        const coursesData = [];
-        querySnapshot.forEach((doc) => {
-          coursesData.push({ id: doc.id, ...doc.data() });
-        });
-        setCourses(coursesData);
-      } catch (error) {
-        console.error("Error fetching courses: ", error);
+const fetchCourses = async () => {
+        const db = await getDatabase(app);
+        const dbRef = await ref(db, "courses");
+        const snapshot = await get(dbRef);
+        if(snapshot.exists()) {
+          setCourses(Object.values(snapshot.val()));
+        } else {
+          alert("error");
+        }
       }
-    };
 
-    fetchCourses();
-  }, []);
+useEffect(() => {
+  //addCourse(); 
+  fetchCourses(); 
+}, []);
+
+  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -64,26 +65,3 @@ const CourseList = () => {
 };
 
 export default CourseList;
-// import React, { useEffect, useState } from "react";
-// import { collection, getDocs } from "firebase/firestore";
-// import { db } from "./firebase";
-
-// function Courses() {
-//   const [courses, setCourses] = useState([]);
-
-//   useEffect(() => {
-//     const fetchCourses = async () => {
-//       try {
-//         const querySnapshot = await getDocs(collection(db, "courses"));
-//         const coursesData = [];
-//         querySnapshot.forEach((doc) => {
-//           coursesData.push({ id: doc.id, ...doc.data() });
-//         });
-//         setCourses(coursesData);
-//       } catch (error) {
-//         console.error("Error fetching courses: ", error);
-//       }
-//     };
-
-//     fetchCourses();
-//   }, []);
