@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDatabase, ref, get } from "firebase/database";
 import app from "../firebase";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCourses, addToCart,removeFromCart } from "../store/CartReducer";
 
 const CourseDetails = () => {
-  const { id } = useParams(); // Get the course ID from the URL
+  const { id } = useParams(); 
   const [course, setCourse] = useState(null);
   const [showSyllabus, setShowSyllabus] = useState(false);
-
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+  //const [selectedProduct, setSelectedProduct] = useState(null);
   const fetchData = async () => {
     const db = getDatabase(app);
     const dbRef = ref(db, "courses");
@@ -31,10 +35,19 @@ const CourseDetails = () => {
       console.log("Error fetching courses");
     }
   };
-
+const handleCart=()=>{
+navigate('/dash');
+}
   useEffect(() => {
     fetchData();
   }, [id]);
+  const handleAddToCart = () => {
+    if (course) {
+// console.log("course to hAI");
+ console.log(course);
+      dispatch(addToCart(course));
+    }
+  };
 
   if (!course) {
     return <div>Loading...</div>;
@@ -62,6 +75,8 @@ const CourseDetails = () => {
           </ul>
         )}
       </div>
+      <button onClick={handleAddToCart}>Enroll</button>
+      <button onClick={handleCart}>GOTOCART</button>
     </div>
   );
 };

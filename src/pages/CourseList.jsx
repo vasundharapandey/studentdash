@@ -2,19 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import app from "../firebase"
-import addCourse from "../models/courseModel";
+// import addCourse from "../models/courseModel";
 import { getDatabase,ref,get } from "firebase/database";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCourses, addToCart,removeFromCart } from "../store/CartReducer";
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-
+  const dispatch=useDispatch();
+ // const courses = useSelector(state => state.cart.courses);
 const fetchCourses = async () => {
         const db = await getDatabase(app);
         const dbRef = await ref(db, "courses");
         const snapshot = await get(dbRef);
         if(snapshot.exists()) {
           setCourses(Object.values(snapshot.val()));
+        //  dispatch(setCourses(Object.values(snapshot.val())));
         } else {
           alert("error");
         }
