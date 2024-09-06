@@ -42,7 +42,8 @@ function StudentDashboard() {
                 <p><strong>Duration:</strong> {course.duration}</p>
                 </div>
                 <p className='my-2'><strong>Schedule:</strong> {course.schedule}</p>
-                <button onClick={() => handleRemoveFromCart(course.id)} className="w-full rounded-lg bg-red-600 p-1 text-lg">Remove</button>
+                <progress value={75} max={100} />
+                <button onClick={() => handleRemoveFromCart(course.id)} className="w-full rounded-lg bg-red-600 p-1 text-lg">Completed</button>
               </div>
             ))}
           </div>

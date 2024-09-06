@@ -37,12 +37,13 @@ const CourseDetails = () => {
       console.log("Error fetching courses");
     }
   };
-const handleCart=()=>{
-navigate('/dash');
-}
+
   useEffect(() => {
     fetchData();
   }, [id]);
+  const handleCart=()=>{
+    navigate('/dash');
+    }
   const handleAddToCart = () => {
     if (course) {
 // console.log("course to hAI");
