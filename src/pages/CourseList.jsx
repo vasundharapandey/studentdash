@@ -6,6 +6,7 @@ import app from "../firebase"
 import { getDatabase,ref,get } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCourses, addToCart,removeFromCart } from "../store/CartReducer";
+import Topbar from "../components/topbar";
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,25 +46,50 @@ useEffect(() => {
 
   return (
     <div>
-      <h1>Course Listing</h1>
-      <input
+      <Topbar />
+      <div className="min-h-[88vh] bg-[#333333] py-12 text-white px-24 ">
+        <div className="h-full w-full p-4">
+          <div className="w-full flex gap-4 text-3xl">
+            <div className="rounded-full bg-black p-3 h-16 w-16 flex items-center justify-center font-bold">VP</div>
+            <div className="flex items-center justify-center font-semibold"><p>Welcome back, Vasundhara Pandey</p></div>
+          </div>
+        </div>
+        <div className="h-full w-full p-6">
+          <div className="p-2">
+            <h1 className="text-3xl font-bold">Course Listings</h1>
+          </div>
+          <div className="w-full p-2">
+          <input
         type="text"
         placeholder="Search by course name or instructor"
         value={searchTerm}
         onChange={handleSearch}
+        className="p-2 rounded-xl bg-inherit border md:w-[50%] w-full"
       />
-      <div style={{ maxHeight: "300px", overflowY: "scroll", marginTop: "20px" }}>
+          </div>
+        </div>
+        <div className="px-6 grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-8">
         {filteredCourses.map((course) => (
           <div
             key={course.id}
             onClick={() => handleCourseClick(course)}
-            style={{ padding: "10px", borderBottom: "1px solid #ccc", cursor: "pointer" }}
+            className="p-4 rounded-xl bg-[#222222]"
           >
-            <h2>{course.name}</h2>
-            <p>{course.instructor}</p>
+            <img className="h-60 border rounded-xl w-full"/>
+            <div className="flex justify-between">
+            <div className="p-2">
+            <h2 className="text-xl font-bold py-2">{course.name}</h2>
+            <p className="text-[#888888]">By {course.instructor}</p>
+            </div>
+            <div></div>
+            </div>
+
           </div>
         ))}
+        </div>
+
       </div>
+      
     </div>
   );
 };
