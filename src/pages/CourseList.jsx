@@ -75,7 +75,7 @@ useEffect(() => {
             onClick={() => handleCourseClick(course)}
             className="p-4 rounded-xl bg-[#222222]"
           >
-            <img className="h-60 border rounded-xl w-full"/>
+            <img src={course.thumbnail} className="h-60 rounded-xl w-full object-cover"/>
             <div className="flex justify-between">
             <div className="p-2">
             <h2 className="text-xl font-bold py-2">{course.name}</h2>

@@ -35,7 +35,7 @@ function StudentDashboard() {
           <div className='md:mx-4 my-8 grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-8'>
             {cart.map((course) => (
               <div key={course.firebaseId} className="p-4 rounded-xl bg-[#222222]">
-                <img className="h-60 border rounded-xl w-full"/>
+                <img src={course.thumbnail} className="h-60 rounded-xl w-full object-cover"/>
                 <h4 className='text-xl font-bold my-2'>{course.name}</h4>
                 <div className='flex justify-between'>
                 <p><strong>Instructor:</strong> {course.instructor}</p>
@@ -54,26 +54,5 @@ function StudentDashboard() {
     </div>
   );
 }
-
-
-{/* <h2>Student Dashboard</h2>
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div>
-          <h3>Your Enrolled Courses:</h3>
-          <ul>
-            {cart.map((course) => (
-              <li key={course.firebaseId} style={{ marginBottom: '20px' }}>
-                <h4>{course.name}</h4>
-                <p><strong>Instructor:</strong> {course.instructor}</p>
-                <p><strong>Duration:</strong> {course.duration}</p>
-                <p><strong>Schedule:</strong> {course.schedule}</p>
-                <button onClick={() => handleRemoveFromCart(course.id)}>Remove</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
 
 export default StudentDashboard;

@@ -66,7 +66,7 @@ navigate('/dash');
           </div>
           <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-4 justify-between w-full">
           <div className="w-full">
-            <img className="rounded-xl h-96 border w-full"/>
+            <img src={course.thumbnail} className="h-60 rounded-xl w-full object-cover md:h-96"/>
           </div>
           <div className="md:px-8 flex flex-col items-start text-lg">
           <p className="text-[#bbbbbb]"><strong className="text-white">Instructor :</strong> {course.instructor}</p>
@@ -77,7 +77,7 @@ navigate('/dash');
       <p className="text-[#bbbbbb]"><strong className="text-white">Location :</strong> {course.location}</p>
       <p className="text-[#bbbbbb]"><strong className="text-white">Pre-requisites :</strong> {course.prerequisites.join(', ')}</p>
       <div className="my-4">
-        <h3 onClick={() => setShowSyllabus(!showSyllabus)} className="cursor-pointer p-2 text-center my-2 rounded-lg bg-blue-500">
+        <h3 onClick={() => setShowSyllabus(!showSyllabus)} className="cursor-pointer p-2 text-center my-2 rounded-lg w-48 bg-blue-500">
           {showSyllabus ? "Hide":"View"} Syllabus
         </h3>
         {showSyllabus && (
@@ -89,8 +89,8 @@ navigate('/dash');
         )}
       </div>
       <div className="flex gap-4">
-      <button onClick={handleAddToCart} className="p-2 rounded-lg bg-green-500 w-32">{enstatus}</button>
-      <button onClick={handleCart} className="p-2 rounded-lg bg-green-500 w-32">Go to cart</button>
+      <button onClick={handleAddToCart} className="p-2 rounded-lg bg-green-500 w-48">{enstatus}</button>
+      <button onClick={handleCart} className="p-2 rounded-lg bg-green-500 w-48">View enrolled course</button>
       </div>
           </div>
           </div>
