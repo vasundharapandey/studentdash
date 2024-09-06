@@ -1,4 +1,4 @@
-// store.js
+
 import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from './CartReducer';
 import { loadFromLocalStorage, saveToLocalStorage } from './helper';
